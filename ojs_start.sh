@@ -7,7 +7,7 @@ env=${APP_ENV:-production}
 
 if [ "$env" != "local" ]; then
     echo "Caching configuration..."
-    (cd /var/www/courseval/current && php artisan config:cache && php artisan view:cache)
+    (cd /var/www/ojs/current && php artisan config:cache && php artisan view:cache)
 fi
 
 if [ "$role" = "app" ]; then
@@ -22,7 +22,7 @@ elif [ "$role" = "scheduler" ]; then
 
     while [ true ]
     do
-      php /var/www/courseval/current/artisan schedule:run --verbose --no-interaction &
+      php /var/www/ojs/current/artisan schedule:run --verbose --no-interaction &
       sleep 60
     done
 

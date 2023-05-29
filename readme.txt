@@ -1,1 +1,1 @@
-courseval
+ojs

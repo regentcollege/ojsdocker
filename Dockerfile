@@ -36,16 +36,16 @@ RUN docker-php-ext-install intl
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY ./config/courseval.conf /etc/apache2/sites-available/laravel.conf
-COPY ./config/courseval.php.ini /usr/local/etc/php/conf.d/laravel.php.ini
-COPY ./config/courseval_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY courseval_start.sh /usr/local/bin/start
+COPY ./config/ojs.conf /etc/apache2/sites-available/laravel.conf
+COPY ./config/ojs.php.ini /usr/local/etc/php/conf.d/laravel.php.ini
+COPY ./config/ojs_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ojs_start.sh /usr/local/bin/start
 
-RUN mkdir -p /var/www/courseval/current/public
+RUN mkdir -p /var/www/ojs/current/public
 
 RUN a2ensite laravel.conf && a2dissite 000-default.conf && chmod u+x /usr/local/bin/start && a2enmod rewrite
 	
 # Setup working directory
-WORKDIR /var/www/courseval
+WORKDIR /var/www/ojs
 
 CMD ["/usr/local/bin/start"]
