@@ -7,7 +7,7 @@ env=${APP_ENV:-production}
 
 if [ "$env" != "local" ]; then
     echo "Caching configuration..."
-    (cd /var/www/ojs/current && php artisan config:cache && php artisan view:cache)
+    (cd /var/www/ojs/current)
 fi
 
 if [ "$role" = "app" ]; then
