@@ -22,7 +22,6 @@ RUN apt-get update && pecl install redis && apt-get install -y \
     g++ \
     supervisor
 
-	
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -36,12 +35,16 @@ RUN docker-php-ext-install intl
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Add nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
+RUN apt-get install -y nodejs
+
 COPY ./config/ojs.conf /etc/apache2/sites-available/laravel.conf
 COPY ./config/ojs.php.ini /usr/local/etc/php/conf.d/laravel.php.ini
 COPY ./config/ojs_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ojs_start.sh /usr/local/bin/start
 
-RUN mkdir -p /var/www/ojs/current/public
+RUN mkdir -p /var/www/ojs/current
 
 RUN a2ensite laravel.conf && a2dissite 000-default.conf && chmod u+x /usr/local/bin/start && a2enmod rewrite
 	
