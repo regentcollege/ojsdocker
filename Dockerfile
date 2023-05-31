@@ -37,7 +37,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Add nodejs
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs npm
 
 COPY ./config/ojs.conf /etc/apache2/sites-available/laravel.conf
 COPY ./config/ojs.php.ini /usr/local/etc/php/conf.d/laravel.php.ini
