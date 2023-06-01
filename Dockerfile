@@ -21,8 +21,7 @@ RUN apt-get update && pecl install redis && apt-get install -y \
     libicu-dev \
     g++ \
     supervisor \
-    nodejs \
-    npm
+    ssl-cert
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -44,7 +43,7 @@ COPY ojs_start.sh /usr/local/bin/start
 
 RUN mkdir -p /var/www/ojs/current
 
-RUN a2ensite laravel.conf && a2dissite 000-default.conf && chmod u+x /usr/local/bin/start && a2enmod rewrite
+RUN a2ensite laravel.conf && a2dissite 000-default.conf && chmod u+x /usr/local/bin/start && a2enmod rewrite && a2enmod ssl
 	
 # Setup working directory
 WORKDIR /var/www/ojs
